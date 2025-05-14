@@ -4,17 +4,19 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthenticatorService } from '../authenticator.service';
 import { last, Subscription } from 'rxjs';
 import { GoogleAuthService } from '../google-auth.service';
+import { LoadingSpinnerComponent } from "../../shared/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, LoadingSpinnerComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
   registerForm!: FormGroup;
   message: string = '';
+  isLoading: boolean = false;
   private authSubscribe: Subscription | undefined;
 
   constructor(private authService: AuthenticatorService, private router: Router, private googleAuthService: GoogleAuthService) {
@@ -31,6 +33,7 @@ export class RegisterComponent {
       this.message = 'Please enter a valid details.';
       return;
     }
+    this.isLoading = true;
     const email = this.registerForm.value.email;
     const user_name = this.registerForm.value.user_name;
     const first_name = this.registerForm.value.first_name;
@@ -38,6 +41,7 @@ export class RegisterComponent {
     this.authSubscribe = this.authService.registerUser(user_name,first_name,last_name,email).subscribe(
       (requestData) => {
         console.log(requestData);
+        this.isLoading = false;
         this.message = 'User registered successfully. Redirecting to login page...';
 
         setTimeout(() => {
@@ -46,12 +50,14 @@ export class RegisterComponent {
       },
       error => {
         console.log(error.error);
+        this.isLoading = false;
         this.message = error.error;
       }
     );
   }
 
   loginWithGoogle() {
+    this.isLoading = true;
     this.googleAuthService.signInWithGoogle();
   }
 
