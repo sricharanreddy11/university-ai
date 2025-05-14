@@ -24,6 +24,7 @@ export const routes: Routes = [
     {
         path: 'rag',
         component: RagComponent,
+        
     },
     {
         path: 'student',
