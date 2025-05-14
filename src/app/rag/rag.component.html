@@ -58,30 +58,52 @@
         <div class="flex-1 flex flex-col items-center justify-center p-4">
           <h1 class="text-3xl font-bold text-[#233559] mb-4">Anurag AI</h1>
           <p class="text-gray-600 mb-8 text-center max-w-lg">Ask me anything about your university needs. I'm here to help you with information, guidance, and support.</p>
+          
+          <!-- Centered search bar when empty -->
+          <div class="w-full max-w-xl mx-auto transition-all duration-500 ease-in-out">
+            <form (ngSubmit)="sendMessage()" class="flex items-center space-x-2">
+              <input 
+                type="text" 
+                [(ngModel)]="userQuery" 
+                name="userQuery"
+                placeholder="Type your message here..." 
+                class="flex-1 border border-gray-300 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#c12535] focus:border-transparent shadow-lg"
+              />
+              <button 
+                type="submit" 
+                [disabled]="!userQuery.trim() || isLoading"
+                class="bg-[#233559] hover:bg-[#1a2945] text-white p-3 rounded-full disabled:opacity-50 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                  <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                </svg>
+              </button>
+            </form>
+          </div>
         </div>
       }
 
-      <!-- Input Form -->
-      <div class="border-t bg-white p-4" [ngClass]="{'max-w-xl mx-auto w-full': messages.length === 0}">
-        <form (ngSubmit)="sendMessage()" class="flex items-center space-x-2">
-          <input 
-            type="text" 
-            [(ngModel)]="userQuery" 
-            name="userQuery"
-            placeholder="Type your message here..." 
-            class="flex-1 border border-gray-300 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#c12535] focus:border-transparent"
-            [class.shadow-lg]="messages.length === 0"
-          />
-          <button 
-            type="submit" 
-            [disabled]="!userQuery.trim() || isLoading"
-            class="bg-[#233559] hover:bg-[#1a2945] text-white p-3 rounded-full disabled:opacity-50 shadow-md">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-              <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
-            </svg>
-          </button>
-        </form>
-      </div>
+      <!-- Input Form - Only shown when there are messages -->
+      @if (messages.length > 0) {
+        <div class="border-t bg-white p-4 animate-slide-up">
+          <form (ngSubmit)="sendMessage()" class="flex items-center space-x-2">
+            <input 
+              type="text" 
+              [(ngModel)]="userQuery" 
+              name="userQuery"
+              placeholder="Type your message here..." 
+              class="flex-1 border border-gray-300 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#c12535] focus:border-transparent"
+            />
+            <button 
+              type="submit" 
+              [disabled]="!userQuery.trim() || isLoading"
+              class="bg-[#233559] hover:bg-[#1a2945] text-white p-3 rounded-full disabled:opacity-50 shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      }
     </div>
   </div>
 </div>

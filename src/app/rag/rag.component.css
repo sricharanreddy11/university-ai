@@ -33,6 +33,22 @@
   animation: pulse 1.5s infinite;
 }
 
+/* Animation for the search bar movement */
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
 /* Message bubble styles */
 .bg-\[\#c12535\] {
   position: relative;

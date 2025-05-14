@@ -2,83 +2,63 @@
   <app-loading-spinner/>
 }
 @else{
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-8">
     <div class="mb-8">
-      <h3 class="text-[#233559] text-3xl font-extrabold">Login</h3>
-      <p class="text-sm mt-4 text-gray-600">
+      <h2 class="text-[#233559] text-3xl font-bold mb-2">Welcome back</h2>
+      <p class="text-gray-600">
         Don't have an account?
-        <a routerLink="/auth/register" class="text-[#c12535] font-semibold hover:underline ml-1 whitespace-nowrap">
+        <a routerLink="/auth/register" class="text-[#c12535] font-medium hover:underline ml-1">
           Register here
         </a>
       </p>
     </div>
+    
     @if(message){
-    <div class="bg-[#f8f0f1] border border-[#c12535] text-[#c12535] px-4 py-3 mb-4 rounded relative" role="alert">
-      <strong class="font-bold">{{ message }}</strong>
-      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-        <svg (click)="closeMessage()" class="fill-current h-6 w-6 text-[#c12535]" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <title>Close</title>
-          <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-        </svg>
-      </span>
-    </div>
-  }
-    <div>
-    <label class="text-[#233559] text-xs font-medium block mb-2">Email</label>
-    <div class="relative flex items-center">
-        <input formControlName="email_mobile" email name="email" type="text" required class="w-full text-gray-700 text-sm border-b-2 border-[#233559] focus:border-[#c12535] px-2 py-3 outline-none bg-transparent" placeholder="Enter email" />
-        <svg xmlns="http://www.w3.org/2000/svg" fill="#233559" stroke="#233559" class="w-[18px] h-[18px] absolute right-2" viewBox="0 0 682.667 682.667">
-          <!-- SVG Content -->
-        </svg>
+      <div class="bg-red-50 text-[#c12535] px-4 py-3 mb-6 rounded flex justify-between items-center" role="alert">
+        <span>{{ message }}</span>
+        <button (click)="closeMessage()" class="text-[#c12535]">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    }
+
+    <div class="mb-6">
+      <label class="text-[#233559] text-sm font-medium block mb-2">Email</label>
+      <div class="relative">
+        <input 
+          formControlName="email_mobile" 
+          type="email" 
+          required 
+          class="w-full px-4 py-3.5 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c12535] focus:border-[#c12535]" 
+          placeholder="Enter your email address"
+        />
       </div>
     </div>
-    <div class="mt-10">
-    <button type="submit" [disabled]="loginForm.invalid" class="w-full shadow-xl py-2.5 px-4 text-sm font-medium tracking-wide rounded-md text-white bg-[#c12535] hover:bg-[#a01e2c] focus:outline-none">
+
+    <button 
+      type="submit" 
+      [disabled]="loginForm.invalid" 
+      class="w-full py-3.5 px-4 text-white bg-[#c12535] rounded-lg hover:bg-[#a01e2c] focus:outline-none focus:ring-2 focus:ring-[#c12535] focus:ring-opacity-50 font-medium transition-colors">
       Request OTP
     </button>
-  </div>
-  <div class="flex items-center my-6">
-    <div class="flex-grow h-px bg-gray-300"></div>
-    <div class="mx-4 text-sm text-gray-500">or continue with</div>
-    <div class="flex-grow h-px bg-gray-300"></div>
-  </div>
-  <div class="space-x-6 flex justify-center">
-    <button type="button"
-      (click)="loginWithGoogle()"
-      class="border-none outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32px" class="inline" viewBox="0 0 512 512">
-        <path fill="#fbbd00"
-          d="M120 256c0-25.367 6.989-49.13 19.131-69.477v-86.308H52.823C18.568 144.703 0 198.922 0 256s18.568 111.297 52.823 155.785h86.308v-86.308C126.989 305.13 120 281.367 120 256z"
-          data-original="#fbbd00" />
-        <path fill="#0f9d58"
-          d="m256 392-60 60 60 60c57.079 0 111.297-18.568 155.785-52.823v-86.216h-86.216C305.044 385.147 281.181 392 256 392z"
-          data-original="#0f9d58" />
-        <path fill="#31aa52"
-          d="m139.131 325.477-86.308 86.308a260.085 260.085 0 0 0 22.158 25.235C123.333 485.371 187.62 512 256 512V392c-49.624 0-93.117-26.72-116.869-66.523z"
-          data-original="#31aa52" />
-        <path fill="#3c79e6"
-          d="M512 256a258.24 258.24 0 0 0-4.192-46.377l-2.251-12.299H256v120h121.452a135.385 135.385 0 0 1-51.884 55.638l86.216 86.216a260.085 260.085 0 0 0 25.235-22.158C485.371 388.667 512 324.38 512 256z"
-          data-original="#3c79e6" />
-        <path fill="#cf2d48"
-          d="m352.167 159.833 10.606 10.606 84.853-84.852-10.606-10.606C388.668 26.629 324.381 0 256 0l-60 60 60 60c36.326 0 70.479 14.146 96.167 39.833z"
-          data-original="#cf2d48" />
-        <path fill="#eb4132"
-          d="M256 120V0C187.62 0 123.333 26.629 74.98 74.98a259.849 259.849 0 0 0-22.158 25.235l86.308 86.308C162.883 146.72 206.376 120 256 120z"
-          data-original="#eb4132" />
-      </svg>
-    </button>
-    <button type="button"
-      class="border-none outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32px" fill="#000" viewBox="0 0 22.773 22.773">
-        <path d="M15.769 0h.162c.13 1.606-.483 2.806-1.228 3.675-.731.863-1.732 1.7-3.351 1.573-.108-1.583.506-2.694 1.25-3.561C13.292.879 14.557.16 15.769 0zm4.901 16.716v.045c-.455 1.378-1.104 2.559-1.896 3.655-.723.995-1.609 2.334-3.191 2.334-1.367 0-2.275-.879-3.676-.903-1.482-.024-2.297.735-3.652.926h-.462c-.995-.144-1.798-.932-2.383-1.642-1.725-2.098-3.058-4.808-3.306-8.276v-1.019c.105-2.482 1.311-4.5 2.914-5.478.846-.52 2.009-.963 3.304-.765.555.086 1.122.276 1.619.464.471.181 1.06.502 1.618.485.378-.011.754-.208 1.135-.347 1.116-.403 2.21-.865 3.652-.648 1.733.262 2.963 1.032 3.723 2.22-1.466.933-2.625 2.339-2.427 4.74.176 2.181 1.444 3.457 3.028 4.209z" data-original="#000000"></path>
-      </svg>
-    </button>
-    <button type="button"
-      class="border-none outline-none">
-      <svg xmlns="http://www.w3.org/2000/svg" width="32px" fill="#3b5998" viewBox="0 0 167.657 167.657">
-        <path d="M83.829.349C37.532.349 0 37.881 0 84.178c0 41.523 30.222 75.911 69.848 82.57v-65.081H49.626v-23.42h20.222V60.978c0-20.037 12.238-30.956 30.115-30.956 8.562 0 15.92.638 18.056.919v20.944l-12.399.006c-9.72 0-11.594 4.618-11.594 11.397v14.947h23.193l-3.025 23.42H94.026v65.653c41.476-5.048 73.631-40.312 73.631-83.154 0-46.273-37.532-83.805-83.828-83.805z" data-original="#010002"></path>
-      </svg>
-    </button>
-  </div>
-</form>
+
+    <!-- <div class="flex items-center my-8">
+      <div class="flex-grow h-px bg-gray-200"></div>
+      <div class="mx-4 text-sm text-gray-500">or continue with</div>
+      <div class="flex-grow h-px bg-gray-200"></div>
+    </div> -->
+
+    <!-- <div class="flex justify-center space-x-6">
+      <button type="button" (click)="loginWithGoogle()" class="p-2 border border-gray-300 rounded-full hover:bg-gray-50 transition-colors">
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+        </svg>
+      </button>
+    </div> -->
+  </form>
 }
