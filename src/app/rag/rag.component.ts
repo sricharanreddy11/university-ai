@@ -110,6 +110,11 @@ export class RagComponent implements OnInit {
       });
   }
 
+  setQuery(question: string): void {
+    this.userQuery = question;
+    this.sendMessage();
+  }
+
   clearChat(): void {
     this.messages = [];
     this.tempSessionId = '';
